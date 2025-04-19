@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Contacts - Suraksha Alert</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <style>
+        .contacts-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+
+        .contacts-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contacts-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+
+        .contacts-header p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-red), var(--primary-blue));
+        }
+
+        .contact-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.8rem;
+            color: white;
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-blue));
+        }
+
+        .contact-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-name {
+            font-weight: 500;
+            color: var(--dark-gray);
+        }
+
+        .contact-number {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            color: #007bff;
+        }
+
+        .delete-btn:hover {
+            color: #dc3545;
+        }
+
+        .action-btn i {
+            font-size: 1.1rem;
+        }
+
+        .add-contact {
+            background: var(--primary-green);
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px auto;
+            transition: all 0.3s ease;
+        }
+
+        .add-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .emergency-hotline {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary-red), #ff5252);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .hotline-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .hotline-text {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .contact-categories {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .contacts-container {
+                margin-top: 80px;
+            }
+
+            .contacts-header h1 {
+                font-size: 2rem;
+            }
+
+            .contact-card {
+                padding: 20px;
+            }
+
+            .contact-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .contact-title {
+                font-size: 1.2rem;
+            }
+
+            .hotline-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: var(--dark-gray);
+            margin: 0;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-gray);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-gray);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group select {
+            background-color: white;
+        }
+
+        .submit-btn {
+            background: var(--primary-green);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Suraksha Alert Logo">
+            <span>Suraksha Alert</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="real-time-alerts.html">Real-time Alerts</a></li>
+            <li><a href="location-tracking.html">Location Tracking</a></li>
+            <li><a href="safety-tips.html">Safety Tips</a></li>
+        </ul>
+    </nav>
+
+    <div class="contacts-container">
+        <div class="contacts-header">
+            <h1>Emergency Contacts</h1>
+            <p>Quick access to emergency services and important contacts during crisis situations</p>
+        </div>
+
+        <div class="emergency-hotline">
+            <h2>24/7 Emergency Hotline</h2>
+            <div class="hotline-number">1800-XXX-XXXX</div>
+            <p class="hotline-text">Available round the clock for immediate assistance</p>
+        </div>
+
+        <div class="contact-categories">
+            <button class="category-btn active">All Contacts</button>
+            <button class="category-btn">Emergency Services</button>
+            <button class="category-btn">Family & Friends</button>
+            <button class="category-btn">Medical Services</button>
+            <button class="category-btn">Government Services</button>
+        </div>
+
+        <div class="contacts-grid">
+            <!-- Emergency Services -->
+            <div class="contact-card">
+                <div class="contact-header">
+                    <div class="contact-icon">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h3 class="contact-title">Emergency Services</h3>
+                </div>
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <div class="contact-info">
+                            <div class="contact-name">Police</div>
+                            <div class="contact-number">100</div>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <div class="contact-info">
+                            <div class="contact-name">Fire Department</div>
+                            <div class="contact-number">101</div>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <div class="contact-info">
+                            <div class="contact-name">Ambulance</div>
+                            <div class="contact-number">102</div>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Medical Services -->
+            <div class="contact-card">
+                <div class="contact-header">
+                    <div class="contact-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3 class="contact-title">Medical Services</h3>
+                </div>
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <div class="contact-info">
+                            <div class="contact-name">City Hospital</div>
+                            <div class="contact-number">+91 98765 43210</div>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <div class="contact-info">
+                            <div class="contact-name">Emergency Clinic</div>
+                            <div class="contact-number">+91 98765 43211</div>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <div class="contact-info">
+                            <div class="contact-name">Pharmacy</div>
+                            <div class="contact-number">+91 98765 43212</div>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Family & Friends -->
+            <div class="contact-card">
+                <div class="contact-header">
+                    <div class="contact-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="contact-title">Family & Friends</h3>
+                </div>
+                <ul class="contact-list">
+                    <li class="contact-item">
+                        <div class="contact-info">
+                            <div class="contact-name">Spouse</div>
+                            <div class="contact-number">+91 98765 43213</div>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <div class="contact-info">
+                            <div class="contact-name">Parent</div>
+                            <div class="contact-number">+91 98765 43214</div>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </li>
+                    <li class="contact-item">
+                        <div class="contact-info">
+                            <div class="contact-name">Friend</div>
+                            <div class="contact-number">+91 98765 43215</div>
+                        </div>
+                        <div class="contact-actions">
+                            <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                            <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <button class="add-contact">
+            <i class="fas fa-plus"></i>
+            Add New Contact
+        </button>
+    </div>
+
+    <!-- Add Contact Modal -->
+    <div id="addContactModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-header">
+                <h2>Add New Contact</h2>
+            </div>
+            <form id="addContactForm">
+                <div class="form-group">
+                    <label for="contactCategory">Category</label>
+                    <select id="contactCategory" required>
+                        <option value="">Select a category</option>
+                        <option value="emergency">Emergency Services</option>
+                        <option value="medical">Medical Services</option>
+                        <option value="family">Family & Friends</option>
+                        <option value="government">Government Services</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="contactName">Contact Name</label>
+                    <input type="text" id="contactName" required placeholder="Enter contact name">
+                </div>
+                <div class="form-group">
+                    <label for="contactNumber">Contact Number</label>
+                    <input type="tel" id="contactNumber" required placeholder="Enter contact number">
+                </div>
+                <button type="submit" class="submit-btn">Add Contact</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Edit Contact Modal -->
+    <div id="editContactModal" class="modal">
+        <div class="modal-content">
+            <button class="close-modal">&times;</button>
+            <div class="modal-header">
+                <h2>Edit Contact</h2>
+            </div>
+            <form id="editContactForm">
+                <input type="hidden" id="editContactId">
+                <div class="form-group">
+                    <label for="editContactCategory">Category</label>
+                    <select id="editContactCategory" required>
+                        <option value="">Select a category</option>
+                        <option value="emergency">Emergency Services</option>
+                        <option value="medical">Medical Services</option>
+                        <option value="family">Family & Friends</option>
+                        <option value="government">Government Services</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editContactName">Contact Name</label>
+                    <input type="text" id="editContactName" required placeholder="Enter contact name">
+                </div>
+                <div class="form-group">
+                    <label for="editContactNumber">Contact Number</label>
+                    <input type="tel" id="editContactNumber" required placeholder="Enter contact number">
+                </div>
+                <button type="submit" class="submit-btn">Update Contact</button>
+            </form>
+        </div>
+    </div>
+
+    <footer id="contact-section">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-phone-alt"></i> Emergency: 1800-XXX-XXXX</p>
+                <p><i class="fas fa-envelope"></i> Email: support@surakshaalert.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Address: Bennett University, Plot No 8-11, TechZone II, Greater Noida, Uttar Pradesh 201310</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" class="facebook-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="twitter-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="instagram-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="linkedin-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Suraksha Alert. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addModal = document.getElementById('addContactModal');
+            const editModal = document.getElementById('editContactModal');
+            const addContactBtn = document.querySelector('.add-contact');
+            const closeModalBtns = document.querySelectorAll('.close-modal');
+            const addContactForm = document.getElementById('addContactForm');
+            const editContactForm = document.getElementById('editContactForm');
+
+            // Open add modal
+            addContactBtn.addEventListener('click', () => {
+                addModal.classList.add('active');
+            });
+
+            // Close modals
+            closeModalBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    addModal.classList.remove('active');
+                    editModal.classList.remove('active');
+                });
+            });
+
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target === addModal) {
+                    addModal.classList.remove('active');
+                }
+                if (e.target === editModal) {
+                    editModal.classList.remove('active');
+                }
+            });
+
+            // Handle add form submission
+            addContactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const category = document.getElementById('contactCategory').value;
+                const name = document.getElementById('contactName').value;
+                const number = document.getElementById('contactNumber').value;
+
+                // Create new contact element
+                const contactItem = createContactElement(name, number);
+
+                // Find the appropriate category card and add the contact
+                const cards = document.querySelectorAll('.contact-card');
+                cards.forEach(card => {
+                    const cardTitle = card.querySelector('.contact-title').textContent.toLowerCase();
+                    if (cardTitle.includes(category.toLowerCase())) {
+                        const contactList = card.querySelector('.contact-list');
+                        contactList.appendChild(contactItem);
+                    }
+                });
+
+                // Reset form and close modal
+                addContactForm.reset();
+                addModal.classList.remove('active');
+
+                showNotification('Contact added successfully!');
+            });
+
+            // Handle edit form submission
+            editContactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const contactId = document.getElementById('editContactId').value;
+                const category = document.getElementById('editContactCategory').value;
+                const name = document.getElementById('editContactName').value;
+                const number = document.getElementById('editContactNumber').value;
+
+                // Find and update the contact element
+                const contactItem = document.querySelector(`[data-contact-id="${contactId}"]`);
+                if (contactItem) {
+                    const nameElement = contactItem.querySelector('.contact-name');
+                    const numberElement = contactItem.querySelector('.contact-number');
+                    
+                    nameElement.textContent = name;
+                    numberElement.textContent = number;
+
+                    // Move to new category if changed
+                    const currentCard = contactItem.closest('.contact-card');
+                    const currentCategory = currentCard.querySelector('.contact-title').textContent.toLowerCase();
+                    
+                    if (!currentCategory.includes(category.toLowerCase())) {
+                        const targetCard = Array.from(document.querySelectorAll('.contact-card'))
+                            .find(card => card.querySelector('.contact-title').textContent.toLowerCase().includes(category.toLowerCase()));
+                        
+                        if (targetCard) {
+                            const contactList = targetCard.querySelector('.contact-list');
+                            contactList.appendChild(contactItem);
+                        }
+                    }
+                }
+
+                // Reset form and close modal
+                editContactForm.reset();
+                editModal.classList.remove('active');
+
+                showNotification('Contact updated successfully!');
+            });
+
+            // Add click handlers for action buttons
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.action-btn')) {
+                    const btn = e.target.closest('.action-btn');
+                    const contactItem = btn.closest('.contact-item');
+                    const contactNumber = contactItem.querySelector('.contact-number').textContent;
+                    const contactName = contactItem.querySelector('.contact-name').textContent;
+                    
+                    if (btn.querySelector('.fa-phone')) {
+                        // Handle phone call
+                        initiateCall(contactNumber);
+                    } else if (btn.querySelector('.fa-edit')) {
+                        // Handle edit
+                        openEditModal(contactItem);
+                    } else if (btn.querySelector('.fa-trash')) {
+                        // Handle delete
+                        if (confirm(`Are you sure you want to delete ${contactName}?`)) {
+                            contactItem.remove();
+                            showNotification('Contact deleted successfully!');
+                        }
+                    }
+                }
+            });
+
+            // Helper function to create contact element
+            function createContactElement(name, number) {
+                const contactItem = document.createElement('li');
+                contactItem.className = 'contact-item';
+                contactItem.dataset.contactId = Date.now().toString(); // Unique ID for the contact
+                contactItem.innerHTML = `
+                    <div class="contact-info">
+                        <div class="contact-name">${name}</div>
+                        <div class="contact-number">${number}</div>
+                    </div>
+                    <div class="contact-actions">
+                        <button class="action-btn" title="Call"><i class="fas fa-phone"></i></button>
+                        <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn delete-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                return contactItem;
+            }
+
+            // Helper function to show notification
+            function showNotification(message) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: var(--primary-green);
+                    color: white;
+                    padding: 15px 25px;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                    z-index: 1000;
+                `;
+                notification.textContent = message;
+                document.body.appendChild(notification);
+
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            }
+
+            // Function to open edit modal
+            function openEditModal(contactItem) {
+                const contactId = contactItem.dataset.contactId;
+                const name = contactItem.querySelector('.contact-name').textContent;
+                const number = contactItem.querySelector('.contact-number').textContent;
+                const category = contactItem.closest('.contact-card').querySelector('.contact-title').textContent;
+
+                document.getElementById('editContactId').value = contactId;
+                document.getElementById('editContactName').value = name;
+                document.getElementById('editContactNumber').value = number;
+                
+                // Set category in dropdown
+                const categorySelect = document.getElementById('editContactCategory');
+                Array.from(categorySelect.options).forEach(option => {
+                    if (category.toLowerCase().includes(option.text.toLowerCase())) {
+                        option.selected = true;
+                    }
+                });
+
+                editModal.classList.add('active');
+            }
+
+            // Function to initiate call
+            function initiateCall(number) {
+                // Remove any non-numeric characters
+                const cleanNumber = number.replace(/\D/g, '');
+                
+                // Try to initiate call
+                if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
+                    // Mobile device - use tel: protocol
+                    window.location.href = `tel:${cleanNumber}`;
+                } else {
+                    // Desktop - show dialog with options
+                    const dialog = document.createElement('div');
+                    dialog.style.cssText = `
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: white;
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                        z-index: 1001;
+                    `;
+                    dialog.innerHTML = `
+                        <h3 style="margin-top: 0;">Call ${number}</h3>
+                        <p>Choose how to make the call:</p>
+                        <div style="display: flex; gap: 10px; margin-top: 15px;">
+                            <a href="tel:${cleanNumber}" class="submit-btn" style="text-decoration: none; text-align: center;">
+                                Call via Phone
+                            </a>
+                            <a href="https://web.whatsapp.com/send?phone=${cleanNumber}" target="_blank" class="submit-btn" style="text-decoration: none; text-align: center; background: #25D366;">
+                                WhatsApp Call
+                            </a>
+                        </div>
+                        <button onclick="this.parentElement.remove()" style="position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                    `;
+                    document.body.appendChild(dialog);
+
+                    // Add backdrop
+                    const backdrop = document.createElement('div');
+                    backdrop.style.cssText = `
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0,0,0,0.5);
+                        z-index: 1000;
+                    `;
+                    backdrop.onclick = () => {
+                        dialog.remove();
+                        backdrop.remove();
+                    };
+                    document.body.appendChild(backdrop);
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

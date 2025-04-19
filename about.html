@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Suraksha Alert</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .about-hero-content {
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .about-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .about-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .about-sections {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .about-section {
+            margin-bottom: 60px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text h2 {
+            font-size: 2.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .about-text h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-red), var(--primary-blue));
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            color: var(--dark-gray);
+        }
+
+        .about-stats-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 60px 20px;
+        }
+
+        .about-stats {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+        }
+
+        .team-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 2.5rem;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+
+        .team-section p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 20px;
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--dark-gray);
+        }
+
+        .member-role {
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .member-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .member-social a {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            transition: all 0.3s ease;
+        }
+
+        .member-social a:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .timeline-section {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .timeline-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--dark-gray);
+            margin-bottom: 50px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 0 0 0 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-red), var(--primary-blue));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -15px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 50%;
+            border: 3px solid var(--primary-blue);
+            z-index: 1;
+        }
+
+        .timeline-content {
+            padding: 20px 25px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-year {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-red);
+            margin-bottom: 10px;
+        }
+
+        .timeline-event {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 10px;
+        }
+
+        .timeline-description {
+            font-size: 1rem;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .about-section, .about-section:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+
+            .timeline-content {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Suraksha Alert Logo">
+            <span>Suraksha Alert</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="real-time-alerts.html">Real-time Alerts</a></li>
+            <li><a href="location-tracking.html">Location Tracking</a></li>
+            <li><a href="emergency-contacts.html">Emergency Contacts</a></li>
+            <li><a href="safety-tips.html">Safety Tips</a></li>
+            <li><a href="about.html" class="active">About Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="about-hero">
+        <div class="about-hero-content">
+            <h1>Our Story</h1>
+            <p>Suraksha Alert was founded with a vision to revolutionize disaster management in India using cutting-edge technology and community engagement. We believe that timely information and proper preparation can save countless lives during emergency situations.</p>
+        </div>
+    </div>
+
+    <div class="about-sections">
+        <div class="about-section">
+            <div class="about-image">
+                <img src="assets/mission-image.png" alt="Suraksha Alert Mission">
+            </div>
+            <div class="about-text">
+                <h2>Our Mission</h2>
+                <p>At Suraksha Alert, our mission is to provide timely, accurate, and actionable information during emergencies, empowering individuals and communities to respond effectively to disasters.</p>
+                <p>We work tirelessly to develop innovative solutions that connect people with critical resources, emergency services, and each other during times of crisis. By leveraging technology, data analytics, and community networks, we aim to minimize the impact of disasters and save lives.</p>
+            </div>
+        </div>
+        
+        <div class="about-section">
+            <div class="about-image">
+                <img src="assets/vision-image.png" alt="Suraksha Alert Vision">
+            </div>
+            <div class="about-text">
+                <h2>Our Vision</h2>
+                <p>We envision a world where no life is lost due to lack of information or resources during disasters. We believe in building communities that are prepared, connected, and resilient in the face of emergencies.</p>
+                <p>Our goal is to create a comprehensive disaster management ecosystem that integrates early warning systems, real-time coordination, and post-disaster recovery support. By 2030, we aim to protect 100 million people across India with our advanced alert systems.</p>
+            </div>
+        </div>
+        
+        <div class="about-section">
+            <div class="about-image">
+                <img src="assets/values.png" alt="Suraksha Alert Values">
+            </div>
+            <div class="about-text">
+                <h2>Our Values</h2>
+                <p><strong>Reliability:</strong> We provide accurate information when it matters most. Our systems undergo rigorous testing to ensure they work flawlessly during emergencies.</p>
+                <p><strong>Accessibility:</strong> We believe life-saving tools should be available to everyone, regardless of location, language, or technical proficiency.</p>
+                <p><strong>Innovation:</strong> We constantly improve our technology to better serve communities, incorporating the latest advancements in AI, IoT, and data analytics.</p>
+                <p><strong>Compassion:</strong> We put people first in everything we do, designing our services with empathy for those in vulnerable situations.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="about-stats-container">
+        <div class="about-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">100,000+</div>
+                <div class="stat-label">Active Users</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="stat-number">10,000+</div>
+                <div class="stat-label">Lives Saved</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-satellite"></i>
+                </div>
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Disasters Predicted</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-section">
+        <h2>Meet Our Team</h2>
+        <p>Our team consists of passionate experts from diverse backgrounds who are united by a common mission: to make disaster management more effective through technology.</p>
+        
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="assets/prateek.jpeg" alt="Prateek Pant">
+                </div>
+                <div class="member-info">
+                    <h3 class="member-name">Prateek Pant</h3>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="assets/tansihq.jpeg" alt="Tanishq Batra">
+                </div>
+                <div class="member-info">
+                    <h3 class="member-name">Tanishq Batra</h3>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="assets/jasleen.png" alt="Jasleen Kaur">
+                </div>
+                <div class="member-info">
+                    <h3 class="member-name">Jasleen Kaur</h3>
+                    <div class="member-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="timeline-section">
+        <h2 class="timeline-title">Our Journey</h2>
+        
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="timeline-event">Week 1</h3>
+                    <p class="timeline-description">In this week, we finalized our teammates and discussed the 17 SDGs and decided to focus on our major goal and think in the same direction to finalise our idea, we discussed various ideas and the positives and negatives of working on them.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="timeline-event">Week 2</h3>
+                    <p class="timeline-description">In this week, we decided to cater to the problem of road accidents and road safety majorly concerning natural disasters especially in hilly areas as it a major problem in those terrains and faced by one of our teammates during his travel journey.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="timeline-event">Week 3</h3>
+                    <p class="timeline-description">We finalized our Project Title and discussed about what major issues will be solved by our project called Suraksha Alert. We drafted a problem statement and listed the concerns which are faced by the real world in real time and how important is to be solved.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="timeline-event">Week 4</h3>
+                    <p class="timeline-description">This week was our week of research and feasibility study. We studied about the disaster management needs and studied the popularly used apps like google maps and waze. We tried to find gaps in the existing solutions and visited the website of road and transport ministry to know the real statistics of the drivers who actually face these problems.We successfully submitted our milestone 1 in this period.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3 class="timeline-event">Week 5</h3>
+                    <p class="timeline-description">This week was the project planning and execution mapping week. We finalized the features we want to provide to our users. We completed our research work by visiting the official website NDRF and studied the competition apps like 112 and studies about the reasons behind the failure of these apps. We reached out to various seniors and talked to industry experts about the project and had a chance to present our idea in IDRIS(International Skill Development and Research Innovation Summit ) and received various forms of feedbacks which were essential to provide a direction to our planning.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact-section">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-phone-alt"></i> Emergency: 1800-XXX-XXXX</p>
+                <p><i class="fas fa-envelope"></i> Email: support@surakshaalert.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Address: Bennett University, Plot No 8-11, TechZone II, Greater Noida, Uttar Pradesh 201310</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" class="facebook-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="twitter-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="instagram-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="linkedin-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Suraksha Alert. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

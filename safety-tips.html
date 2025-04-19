@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety Tips - Suraksha Alert</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <style>
+        .tips-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+
+        .tips-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tips-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+
+        .tips-header p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .tip-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tip-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-red), var(--primary-blue));
+        }
+
+        .tip-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tip-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.8rem;
+            color: white;
+            background: linear-gradient(135deg, var(--primary-red), var(--primary-blue));
+        }
+
+        .tip-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .tip-content {
+            margin-bottom: 20px;
+        }
+
+        .tip-content p {
+            color: var(--dark-gray);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .tip-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px;
+            background: var(--light-gray);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .tip-item:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+
+        .tip-item i {
+            color: var(--primary-blue);
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+
+        .tip-item span {
+            color: var(--dark-gray);
+            line-height: 1.5;
+        }
+
+        .tip-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .tip-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background: var(--primary-blue);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .tip-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip-categories {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .category-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .tips-container {
+                margin-top: 80px;
+            }
+
+            .tips-header h1 {
+                font-size: 2rem;
+            }
+
+            .tip-card {
+                padding: 20px;
+            }
+
+            .tip-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .tip-title {
+                font-size: 1.2rem;
+            }
+
+            .tip-actions {
+                flex-direction: column;
+            }
+
+            .tip-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Suraksha Alert Logo">
+            <span>Suraksha Alert</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="real-time-alerts.html">Real-time Alerts</a></li>
+            <li><a href="location-tracking.html">Location Tracking</a></li>
+            <li><a href="emergency-contacts.html">Emergency Contacts</a></li>
+            <li><a href="safety-tips.html">Safety Tips</a></li>
+            <li><a href="about.html">About Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="tips-container">
+        <div class="tips-header">
+            <h1>Safety Tips</h1>
+            <p>Essential safety guidelines and emergency preparedness tips to keep you and your loved ones safe</p>
+        </div>
+
+        <div class="tip-categories">
+            <button class="category-btn active">All Tips</button>
+            <button class="category-btn">Emergency Preparedness</button>
+            <button class="category-btn">Natural Disasters</button>
+            <button class="category-btn">Personal Safety</button>
+            <button class="category-btn">First Aid</button>
+        </div>
+
+        <div class="tips-grid">
+            <!-- Emergency Preparedness -->
+            <div class="tip-card">
+                <div class="tip-header">
+                    <div class="tip-icon">
+                        <i class="fas fa-kit-medical"></i>
+                    </div>
+                    <h3 class="tip-title">Emergency Kit Essentials</h3>
+                </div>
+                <div class="tip-content">
+                    <p>Prepare an emergency kit with these essential items:</p>
+                    <ul class="tip-list">
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>First aid supplies and medications</span>
+                        </li>
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Non-perishable food and water</span>
+                        </li>
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Flashlight and batteries</span>
+                        </li>
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Emergency contact list</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tip-actions">
+                    <a href="assets/emergency-kit-checklist.pdf" download class="tip-btn">
+                        <i class="fas fa-download"></i>
+                        Download Checklist
+                    </a>
+                    <button class="tip-btn">
+                        <i class="fas fa-share-alt"></i>
+                        Share
+                    </button>
+                </div>
+            </div>
+
+            <!-- Natural Disasters -->
+            <div class="tip-card">
+                <div class="tip-header">
+                    <div class="tip-icon">
+                        <i class="fas fa-hurricane"></i>
+                    </div>
+                    <h3 class="tip-title">Flood Safety</h3>
+                </div>
+                <div class="tip-content">
+                    <p>Important safety measures during floods:</p>
+                    <ul class="tip-list">
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Move to higher ground immediately</span>
+                        </li>
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Avoid walking through floodwater</span>
+                        </li>
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Stay tuned to weather alerts</span>
+                        </li>
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Keep emergency supplies ready</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tip-actions">
+                    <a href="https://www.weather.gov/safety/flood" target="_blank" class="tip-btn">
+                        <i class="fas fa-info-circle"></i>
+                        Learn More
+                    </a>
+                    <button class="tip-btn">
+                        <i class="fas fa-share-alt"></i>
+                        Share
+                    </button>
+                </div>
+            </div>
+
+            <!-- Personal Safety -->
+            <div class="tip-card">
+                <div class="tip-header">
+                    <div class="tip-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="tip-title">Personal Safety</h3>
+                </div>
+                <div class="tip-content">
+                    <p>Stay safe with these personal safety tips:</p>
+                    <ul class="tip-list">
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Be aware of your surroundings</span>
+                        </li>
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Keep emergency numbers handy</span>
+                        </li>
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Share your location with trusted contacts</span>
+                        </li>
+                        <li class="tip-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Learn basic self-defense techniques</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tip-actions">
+                    <a href="https://youtu.be/OCjl6tp8dnw?si=m8vunKOoAeYPwxfU" target="_blank" class="tip-btn">
+                        <i class="fas fa-video"></i>
+                        Watch Tutorial
+                    </a>
+                    <button class="tip-btn">
+                        <i class="fas fa-share-alt"></i>
+                        Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact-section">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-phone-alt"></i> Emergency: 1800-XXX-XXXX</p>
+                <p><i class="fas fa-envelope"></i> Email: support@surakshaalert.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Address: Bennett University, Plot No 8-11, TechZone II, Greater Noida, Uttar Pradesh 201310</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" class="facebook-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="twitter-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="instagram-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="linkedin-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Suraksha Alert. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

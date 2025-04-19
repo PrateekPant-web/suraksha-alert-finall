@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Suraksha Alert</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <style>
+        .policy-container {
+            max-width: 1000px;
+            margin: 120px auto 50px;
+            padding: 2rem;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .policy-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .policy-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark-gray);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .policy-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--logo-orange), var(--logo-dark-orange));
+            border-radius: 3px;
+        }
+        
+        .faq-section {
+            margin-bottom: 2rem;
+        }
+        
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+            padding-bottom: 1.5rem;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .faq-question i {
+            color: var(--logo-orange);
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+        
+        .faq-answer {
+            padding-left: 28px;
+            line-height: 1.7;
+        }
+        
+        .faq-category {
+            margin-bottom: 2.5rem;
+        }
+        
+        .faq-category h2 {
+            font-size: 1.5rem;
+            color: var(--dark-gray);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(to right, var(--logo-orange), var(--logo-dark-orange));
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-btn i {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/logo.png" alt="Suraksha Alert Logo">
+                <span>Suraksha Alert</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html#home">Home</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact-section">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="policy-container">
+        <div class="policy-header">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about Suraksha Alert</p>
+        </div>
+
+        <div class="faq-category">
+            <h2>General Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>What is Suraksha Alert?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Suraksha Alert is a comprehensive disaster management and emergency response platform designed to help individuals, communities, and organizations prepare for, respond to, and recover from natural and man-made disasters. Our services include early warning systems, emergency alerts, location tracking, evacuation planning, and resource coordination.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>How does Suraksha Alert work?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Suraksha Alert uses advanced technology to monitor potential disaster situations and provide timely alerts to users. Our platform collects data from various sources, including weather services, seismic monitoring stations, and government agencies, to predict and track disasters. When a potential threat is detected, we send alerts to users in the affected areas and provide guidance on safety measures and evacuation routes.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Is Suraksha Alert available in my area?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Suraksha Alert is currently available throughout India, with plans to expand to other countries in the near future. Our coverage is most comprehensive in urban areas, but we are continuously working to improve our services in rural regions as well. Please check our coverage map on the main page for specific details about your location.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-category">
+            <h2>Account & Registration</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>How do I create an account?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Creating an account is simple. Download the Suraksha Alert app from the App Store or Google Play Store, or visit our website and click on the "Sign Up" button. You'll need to provide some basic information, including your name, email address, phone number, and location. Once you've completed the registration form, you'll receive a verification code via SMS or email to activate your account.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Is my personal information secure?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we take data security very seriously. All personal information is encrypted and stored securely on our servers. We do not share your information with third parties without your consent, except as required by law or in emergency situations where sharing your location with emergency services may be necessary. For more details, please refer to our <a href="privacy-policy.html">Privacy Policy</a>.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Can I use Suraksha Alert without creating an account?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>While some basic features, such as viewing general disaster alerts and safety tips, are available without an account, most of our services require registration. This is because we need your location and contact information to provide personalized alerts and emergency assistance. Creating an account also allows you to set up emergency contacts and customize your alert preferences.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-category">
+            <h2>Alerts & Notifications</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>How will I receive alerts?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Alerts are delivered through multiple channels to ensure you receive them even in challenging conditions. These include push notifications through our app, SMS text messages, email alerts, and automated phone calls for critical emergencies. You can customize your preferred notification methods in your account settings.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Can I customize which types of alerts I receive?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, you can customize your alert preferences in the app or website settings. You can choose which types of disasters you want to be notified about (e.g., floods, earthquakes, fires) and set the severity threshold for alerts. However, we recommend keeping all critical alerts enabled for your safety.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>What should I do when I receive an alert?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>When you receive an alert, stay calm and follow the instructions provided. The alert will include information about the nature of the emergency, its severity, and recommended actions. Depending on the situation, you may be advised to evacuate, seek shelter, or take other protective measures. The app will also provide access to evacuation routes, emergency contact information, and safety guidelines specific to the type of disaster.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-category">
+            <h2>Technical Support</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>What if the app isn't working during an emergency?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>We've designed Suraksha Alert to function even in challenging conditions, including limited internet connectivity. However, if you experience issues with the app during an emergency, you'll still receive alerts via SMS and phone calls if you've provided your contact information. We also recommend downloading offline maps and emergency guides in advance, which are accessible without an internet connection.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>How can I report a bug or technical issue?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>If you encounter any technical issues or bugs, please report them through the "Help & Support" section in the app or website. You can also email our technical support team at support@surakshaalert.com. Please include as much detail as possible, including your device model, operating system version, and a description of the issue, to help us resolve it quickly.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Does Suraksha Alert work without internet access?</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Some features of Suraksha Alert require internet access to function properly, such as real-time alerts and location tracking. However, we've designed the app to work with limited connectivity. Critical alerts can be delivered via SMS, and we provide offline access to emergency guides, first aid instructions, and previously downloaded maps. We recommend downloading these resources in advance when you have a stable internet connection.</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-phone-alt"></i> Emergency: 1800-XXX-XXXX</p>
+                <p><i class="fas fa-envelope"></i> Email: support@surakshaalert.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Address: Bennett University, Plot No 8-11, TechZone II, Greater Noida, Uttar Pradesh 201310</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" class="facebook-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="twitter-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="instagram-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="linkedin-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Suraksha Alert. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="fix-social-icons.js"></script>
+</body>
+</html> 

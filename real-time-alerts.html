@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Alerts - Suraksha Alert</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <style>
+        .alerts-container {
+            max-width: 1200px;
+            margin: 100px auto 50px;
+            padding: 0 20px;
+        }
+
+        .alerts-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .alerts-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+        }
+
+        .alerts-header p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .alerts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .alert-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--primary-red);
+        }
+
+        .alert-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .alert-card.critical {
+            border-left-color: var(--primary-red);
+        }
+
+        .alert-card.high {
+            border-left-color: var(--orange);
+        }
+
+        .alert-card.medium {
+            border-left-color: var(--warning-yellow);
+        }
+
+        .alert-card.low {
+            border-left-color: var(--primary-green);
+        }
+
+        .alert-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .alert-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .alert-icon.critical {
+            background: var(--primary-red);
+        }
+
+        .alert-icon.high {
+            background: var(--orange);
+        }
+
+        .alert-icon.medium {
+            background: var(--warning-yellow);
+        }
+
+        .alert-icon.low {
+            background: var(--primary-green);
+        }
+
+        .alert-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .alert-content {
+            margin-bottom: 15px;
+        }
+
+        .alert-content p {
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .alert-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .alert-location {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .alert-time {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .alert-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .alert-btn {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .view-details {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .share-alert {
+            background: var(--light-gray);
+            color: var(--dark-gray);
+        }
+
+        .alert-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .alerts-container {
+                margin-top: 80px;
+            }
+
+            .alerts-header h1 {
+                font-size: 2rem;
+            }
+
+            .alert-card {
+                padding: 20px;
+            }
+
+            .alert-actions {
+                flex-direction: column;
+            }
+
+            .alert-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Suraksha Alert Logo">
+            <span>Suraksha Alert</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="location-tracking.html">Location Tracking</a></li>
+            <li><a href="emergency-contacts.html">Emergency Contacts</a></li>
+            <li><a href="safety-tips.html">Safety Tips</a></li>
+        </ul>
+    </nav>
+
+    <div class="alerts-container">
+        <div class="alerts-header">
+            <h1>Real-time Alerts</h1>
+            <p>Stay informed about emergencies and disasters in your area with instant notifications</p>
+        </div>
+
+        <div class="alert-filters">
+            <button class="filter-btn active">All Alerts</button>
+            <button class="filter-btn">Critical</button>
+            <button class="filter-btn">High Priority</button>
+            <button class="filter-btn">Medium Priority</button>
+            <button class="filter-btn">Low Priority</button>
+        </div>
+
+        <div class="alerts-grid">
+            <!-- Critical Alert -->
+            <div class="alert-card critical">
+                <div class="alert-header">
+                    <div class="alert-icon critical">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="alert-title">Flood Warning</h3>
+                </div>
+                <div class="alert-content">
+                    <p>Severe flooding expected in low-lying areas. Immediate evacuation recommended.</p>
+                </div>
+                <div class="alert-meta">
+                    <div class="alert-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Greater Noida, UP</span>
+                    </div>
+                    <div class="alert-time">
+                        <i class="fas fa-clock"></i>
+                        <span>2 minutes ago</span>
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="alert-btn view-details">
+                        <i class="fas fa-info-circle"></i>
+                        View Details
+                    </button>
+                    <button class="alert-btn share-alert">
+                        <i class="fas fa-share-alt"></i>
+                        Share
+                    </button>
+                </div>
+            </div>
+
+            <!-- High Priority Alert -->
+            <div class="alert-card high">
+                <div class="alert-header">
+                    <div class="alert-icon high">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <h3 class="alert-title">Earthquake Alert</h3>
+                </div>
+                <div class="alert-content">
+                    <p>Earthquake detected in the region. Emergency services responding.</p>
+                </div>
+                <div class="alert-meta">
+                    <div class="alert-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Noida Sector 62</span>
+                    </div>
+                    <div class="alert-time">
+                        <i class="fas fa-clock"></i>
+                        <span>15 minutes ago</span>
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="alert-btn view-details">
+                        <i class="fas fa-info-circle"></i>
+                        View Details
+                    </button>
+                    <button class="alert-btn share-alert">
+                        <i class="fas fa-share-alt"></i>
+                        Share
+                    </button>
+                </div>
+            </div>
+
+            <!-- Medium Priority Alert -->
+            <div class="alert-card medium">
+                <div class="alert-header">
+                    <div class="alert-icon medium">
+                        <i class="fas fa-exclamation"></i>
+                    </div>
+                    <h3 class="alert-title">Heavy Rainfall</h3>
+                </div>
+                <div class="alert-content">
+                    <p>Heavy rainfall expected in the next 2 hours. Prepare for potential waterlogging.</p>
+                </div>
+                <div class="alert-meta">
+                    <div class="alert-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Delhi NCR</span>
+                    </div>
+                    <div class="alert-time">
+                        <i class="fas fa-clock"></i>
+                        <span>1 hour ago</span>
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="alert-btn view-details">
+                        <i class="fas fa-info-circle"></i>
+                        View Details
+                    </button>
+                    <button class="alert-btn share-alert">
+                        <i class="fas fa-share-alt"></i>
+                        Share
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Landslide Alert -->
+            <div class="alert-card high">
+                <div class="alert-header">
+                    <div class="alert-icon high">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3 class="alert-title">Landslide Alert</h3>
+                </div>
+                <div class="alert-content">
+                    <p>Landslide detected in mountainous region. Avoid travel in affected areas.</p>
+                </div>
+                <div class="alert-meta">
+                    <div class="alert-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Manali, Himachal Pradesh</span>
+                    </div>
+                    <div class="alert-time">
+                        <i class="fas fa-clock"></i>
+                        <span>30 minutes ago</span>
+                    </div>
+                </div>
+                <div class="alert-actions">
+                    <button class="alert-btn view-details">
+                        <i class="fas fa-info-circle"></i>
+                        View Details
+                    </button>
+                    <button class="alert-btn share-alert">
+                        <i class="fas fa-share-alt"></i>
+                        Share
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact-section">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-phone-alt"></i> Emergency: 1800-XXX-XXXX</p>
+                <p><i class="fas fa-envelope"></i> Email: support@surakshaalert.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Address: Bennett University, Plot No 8-11, TechZone II, Greater Noida, Uttar Pradesh 201310</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" class="facebook-link"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="twitter-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="instagram-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="linkedin-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Suraksha Alert. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const alertCards = document.querySelectorAll('.alert-card');
+            
+            // Add click event listener to each filter button
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get filter value from button text
+                    const filterValue = this.textContent.trim().toLowerCase();
+                    
+                    // Show/hide alert cards based on filter
+                    alertCards.forEach(card => {
+                        if (filterValue === 'all alerts') {
+                            // Show all cards if "All Alerts" is selected
+                            card.style.display = 'block';
+                        } else if (filterValue === 'critical' && card.classList.contains('critical')) {
+                            card.style.display = 'block';
+                        } else if (filterValue === 'high priority' && card.classList.contains('high')) {
+                            card.style.display = 'block';
+                        } else if (filterValue === 'medium priority' && card.classList.contains('medium')) {
+                            card.style.display = 'block';
+                        } else if (filterValue === 'low priority' && card.classList.contains('low')) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // View Details button functionality
+            const viewDetailsButtons = document.querySelectorAll('.view-details');
+            viewDetailsButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const alertCard = this.closest('.alert-card');
+                    const alertTitle = alertCard.querySelector('.alert-title').textContent;
+                    const alertContent = alertCard.querySelector('.alert-content p').textContent;
+                    const alertLocation = alertCard.querySelector('.alert-location span').textContent;
+                    
+                    // Get alert type from the card class
+                    let alertType = '';
+                    if (alertCard.classList.contains('critical')) {
+                        alertType = 'critical';
+                    } else if (alertCard.classList.contains('high')) {
+                        alertType = 'high';
+                    } else if (alertCard.classList.contains('medium')) {
+                        alertType = 'medium';
+                    } else if (alertCard.classList.contains('low')) {
+                        alertType = 'low';
+                    }
+                    
+                    // Get coordinates based on location
+                    let coordinates = { lat: 0, lng: 0 };
+                    
+                    // Map location names to coordinates
+                    if (alertLocation.includes('Greater Noida')) {
+                        coordinates = { lat: 28.4744, lng: 77.5040 };
+                    } else if (alertLocation.includes('Noida Sector 62')) {
+                        coordinates = { lat: 28.6288, lng: 77.3644 };
+                    } else if (alertLocation.includes('Delhi NCR')) {
+                        coordinates = { lat: 28.6139, lng: 77.2090 };
+                    } else if (alertLocation.includes('Manali')) {
+                        coordinates = { lat: 32.2432, lng: 77.1892 };
+                    }
+                    
+                    // Store alert data in localStorage for the map page to access
+                    const alertData = {
+                        title: alertTitle,
+                        content: alertContent,
+                        location: alertLocation,
+                        type: alertType,
+                        coordinates: coordinates,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    localStorage.setItem('selectedAlert', JSON.stringify(alertData));
+                    
+                    // Redirect to the map page
+                    window.location.href = 'location-tracking.html?showAlert=true';
+                });
+            });
+            
+            // Share Alert button functionality
+            const shareButtons = document.querySelectorAll('.share-alert');
+            shareButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const alertCard = this.closest('.alert-card');
+                    const alertTitle = alertCard.querySelector('.alert-title').textContent;
+                    const alertContent = alertCard.querySelector('.alert-content p').textContent;
+                    const alertLocation = alertCard.querySelector('.alert-location span').textContent;
+                    
+                    // Create share text
+                    const shareText = `Emergency Alert from Suraksha Alert!\n\n${alertTitle}: ${alertContent}\nLocation: ${alertLocation}\n\nStay safe and follow safety guidelines.`;
+                    
+                    // Try to use Web Share API if available
+                    if (navigator.share) {
+                        navigator.share({
+                            title: 'Emergency Alert',
+                            text: shareText,
+                            url: window.location.href
+                        })
+                        .catch(err => {
+                            // Fallback
+                            alert("Sharing: " + shareText);
+                        });
+                    } else {
+                        // Fallback for browsers that don't support Web Share API
+                        alert("Sharing: " + shareText);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

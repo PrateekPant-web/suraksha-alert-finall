@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suraksha Alert - Disaster Management System</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" href="assets/logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <!-- Configuration -->
+    <script src="config.js"></script>
+    <!-- Google Maps API -->
+    <script>
+        document.write('<script src="https://maps.googleapis.com/maps/api/js?key=' + GOOGLE_MAPS_API_KEY + '&libraries=geometry&callback=initMap" async defer><\/script>');
+    </script>
+    <!-- TensorFlow.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js"></script>
+    <!-- Additional styles for social media icons -->
+    <style>
+        .social-links a i {
+            color: #ffffff !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Enhanced Loading Screen -->
+    <div class="loading-container" id="loadingScreen">
+        <div class="loading-logo"></div>
+        <div class="loading-text">Suraksha Alert</div>
+        <div class="loading-subtext">Your safety is our priority</div>
+        <div class="loading-progress">
+            <div class="loading-progress-bar"></div>
+        </div>
+        <div class="loading-safety-tips" id="loadingTips">
+            Stay informed during emergencies - Keep your device charged
+        </div>
+    </div>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-button" id="chatButton">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-header">
+                <h3><i class="fas fa-headset"></i> Suraksha Support</h3>
+                <div class="chat-controls">
+                    <button class="minimize-btn" id="minimizeChat"><i class="fas fa-minus"></i></button>
+                    <button class="close-btn" id="closeChat"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message system">
+                    <div class="message-content">
+                        <p>Welcome to Suraksha Alert Emergency Support! How can we help you today?</p>
+                        <span class="message-time">Just now</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input">
+                <button id="uploadDocument" class="upload-btn">
+                    <i class="fas fa-paperclip"></i>
+                </button>
+                <textarea id="messageInput" placeholder="Type your message here..."></textarea>
+                <button id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+                <input type="file" id="documentInput" style="display: none;" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">
+            <img src="assets/logo.png" alt="Suraksha Alert Logo">
+            <span>Suraksha Alert</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="real-time-alerts.html">Real-time Alerts</a></li>
+            <li><a href="emergency-contacts.html">Emergency Contacts</a></li>
+            <li><a href="safety-tips.html">Safety Tips</a></li>
+            <li><a href="#contact-section">Contact</a></li>
+        </ul>
+        <div class="verify-button-container">
+            <a href="#verify-section" class="verify-button">
+                <i class="fas fa-shield-alt"></i> Verify ID
+            </a>
+        </div>
+        <div id="authStatus" class="auth-status">
+            <!-- Authentication status will be dynamically updated -->
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Emergency Response System</h1>
+            <p class="hero-subtitle">Your safety is our top priority. Get immediate assistance during emergencies.</p>
+            
+            <div class="emergency-panel">
+                <div class="emergency-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <h2>Rapid Response Center</h2>
+                </div>
+                
+                <div class="emergency-options">
+                    <div class="emergency-option" style="width: 100%;">
+                        <div class="option-icon emergency-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="option-content">
+                            <h3>Emergency Alert</h3>
+                            <p>Send immediate distress signal with your location</p>
+                            <button class="emergency-btn pulse-btn" id="emergencyBtn">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Send Alert
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="emergency-footer">
+                    <div class="emergency-status">
+                        <div class="status-indicator online"></div>
+                        <span>System Online - Ready to Respond</span>
+                    </div>
+                    <div class="emergency-hotline">
+                        <i class="fas fa-phone-alt"></i>
+                        <span>Emergency Hotline: 1800-XXX-XXXX</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <section class="map-section">
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+        </section>
+
+        <!-- Weather Alert Widget -->
+        <section class="weather-alert-widget">
+            <div class="weather-card">
+                <div class="weather-header">
+                    <h3><i class="fas fa-cloud-sun"></i> Weather Alert System</h3>
+                    <div class="location-selector">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <select id="locationSelect">
+                            <option value="current">Current Location</option>
+                            <option value="delhi">Delhi, India</option>
+                            <option value="mumbai">Mumbai, India</option>
+                            <option value="kolkata">Kolkata, India</option>
+                            <option value="chennai">Chennai, India</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="weather-body">
+                    <div class="current-weather">
+                        <div class="weather-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="weather-details">
+                            <div class="temperature">32°C</div>
+                            <div class="weather-description">Clear Sky</div>
+                            <div class="other-details">
+                                <span><i class="fas fa-tint"></i> 45%</span>
+                                <span><i class="fas fa-wind"></i> 12 km/h</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-forecast">
+                        <div class="forecast-item">
+                            <div class="day">Mon</div>
+                            <i class="fas fa-cloud-sun"></i>
+                            <div class="temp">29°C</div>
+                        </div>
+                        <div class="forecast-item">
+                            <div class="day">Tue</div>
+                            <i class="fas fa-cloud-rain"></i>
+                            <div class="temp">27°C</div>
+                        </div>
+                        <div class="forecast-item">
+                            <div class="day">Wed</div>
+                            <i class="fas fa-cloud-showers-heavy"></i>
+                            <div class="temp">25°C</div>
+                        </div>
+                        <div class="forecast-item">
+                            <div class="day">Thu</div>
+                            <i class="fas fa-bolt"></i>
+                            <div class="temp">26°C</div>
+                        </div>
+                        <div class="forecast-item">
+                            <div class="day">Fri</div>
+                            <i class="fas fa-sun"></i>
+                            <div class="temp">30°C</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="weather-hazard-alert">
+                    <div class="hazard-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <div class="hazard-details">
+                        <h4>Severe Thunderstorm Warning</h4>
+                        <p>Heavy rainfall expected on Wednesday with risk of flash flooding in low-lying areas. Stay prepared.</p>
+                    </div>
+                </div>
+                <div class="weather-controls">
+                    <button class="weather-btn" id="refreshWeather"><i class="fas fa-sync-alt"></i> Refresh</button>
+                    <button class="weather-btn" id="weatherAlerts"><i class="fas fa-bell"></i> Set Alerts</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="services-section">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <p>Comprehensive disaster management solutions to keep you and your loved ones safe</p>
+            </div>
+            <div class="services-container">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-satellite"></i>
+                    </div>
+                    <h3>Disaster Prediction</h3>
+                    <p>Advanced AI algorithms to predict natural disasters before they occur, giving you valuable time to prepare.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <h3>Early Warning System</h3>
+                    <p>Receive timely alerts about potential disasters in your area through multiple communication channels.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3>Evacuation Planning</h3>
+                    <p>Get personalized evacuation routes and access to nearby shelters during emergency situations.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Resource Coordination</h3>
+                    <p>Connect with emergency services, volunteers, and relief organizations during and after disasters.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <a href="real-time-alerts.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-bell"></i>
+                    <h3>Real-time Alerts</h3>
+                    <p>Get instant notifications about emergencies in your area</p>
+                </a>
+            </div>
+            <div class="feature-card">
+                <a href="location-tracking.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <h3>Location Tracking</h3>
+                    <p>Share your location with emergency services</p>
+                </a>
+            </div>
+            <div class="feature-card">
+                <a href="emergency-contacts.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Emergency Contacts</h3>
+                    <p>Quick access to emergency helpline numbers</p>
+                </a>
+            </div>
+            <div class="feature-card">
+                <a href="safety-tips.html" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>Safety Tips</h3>
+                    <p>Important guidelines for different emergency situations</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- Verify Now Section -->
+        <section id="verify-section" class="verify-section">
+            <div class="section-header">
+                <h2>Verify Your Identity</h2>
+                <p>Complete your profile verification to access all emergency services and priority assistance</p>
+            </div>
+            <div class="verify-container">
+                <div class="verify-content">
+                    <div class="verify-info">
+                        <h3>Why Verify?</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Faster emergency response</li>
+                            <li><i class="fas fa-check-circle"></i> Priority assistance during disasters</li>
+                            <li><i class="fas fa-check-circle"></i> Access to exclusive emergency services</li>
+                            <li><i class="fas fa-check-circle"></i> Automated medical history sharing with responders</li>
+                            <li><i class="fas fa-check-circle"></i> Family tracking and notification system</li>
+                        </ul>
+                    </div>
+                    <div class="verify-form">
+                        <h3>Upload Verification Documents</h3>
+                        <p>Please provide at least one of the following official documents:</p>
+                        
+                        <div class="document-options">
+                            <div class="document-option">
+                                <input type="radio" id="aadhar" name="document-type" value="aadhar" checked>
+                                <label for="aadhar"><i class="fas fa-id-card"></i> Aadhar Card</label>
+                            </div>
+                            <div class="document-option">
+                                <input type="radio" id="passport" name="document-type" value="passport">
+                                <label for="passport"><i class="fas fa-passport"></i> Passport</label>
+                            </div>
+                            <div class="document-option">
+                                <input type="radio" id="driving" name="document-type" value="driving">
+                                <label for="driving"><i class="fas fa-id-badge"></i> Driving License</label>
+                            </div>
+                            <div class="document-option">
+                                <input type="radio" id="voter" name="document-type" value="voter">
+                                <label for="voter"><i class="fas fa-vote-yea"></i> Voter ID</label>
+                            </div>
+                            <div class="document-option">
+                                <input type="radio" id="pan" name="document-type" value="pan">
+                                <label for="pan"><i class="fas fa-file-alt"></i> PAN Card</label>
+                            </div>
+                        </div>
+                        
+                        <div class="document-upload">
+                            <label for="document-file" class="upload-box">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Drag and drop your document or click to browse</span>
+                                <input type="file" id="document-file" accept=".jpg,.jpeg,.png,.pdf">
+                            </label>
+                        </div>
+                        
+                        <div class="verify-actions">
+                            <button id="verifySubmit" class="verify-btn">
+                                <i class="fas fa-shield-alt"></i> Verify Now
+                            </button>
+                            <p class="verify-note">Your documents are securely encrypted and only used for verification purposes. Learn more about our <a href="privacy-policy.html">privacy policy</a>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="verification-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Upload Document</h4>
+                            <p>Select and upload any of your national ID documents</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Verification Check</h4>
+                            <p>Our system verifies your document authenticity</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Get Verified</h4>
+                            <p>Receive verified badge and access all premium features</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="section-header">
+                <h2>About Suraksha Alert</h2>
+                <p>Innovative technology for disaster management and emergency response</p>
+            </div>
+            <div class="about-container">
+                <div class="about-overview">
+                    <div class="about-image-container">
+                        <img src="assets/logo.png" alt="Suraksha Alert Logo" class="about-logo">
+                        <div class="about-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>Saving lives during disasters through technology and community coordination</p>
+                            <i class="fas fa-quote-right"></i>
+                        </div>
+                    </div>
+                    <div class="about-cards-container">
+                        <div class="about-card mission-card">
+                            <div class="card-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h3>Our Mission</h3>
+                            <p>To provide timely, accurate, and actionable information during emergencies, empowering individuals and communities to respond effectively to disasters.</p>
+                        </div>
+                        <div class="about-card vision-card">
+                            <div class="card-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3>Our Vision</h3>
+                            <p>A world where no life is lost due to lack of information or resources during disasters. We envision communities that are prepared, connected, and resilient.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-values-section">
+                    <h3>Our Core Values</h3>
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4>Reliability</h4>
+                            <p>Providing accurate information when it matters most</p>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-universal-access"></i>
+                            </div>
+                            <h4>Accessibility</h4>
+                            <p>Making life-saving tools available to everyone</p>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4>Innovation</h4>
+                            <p>Constantly improving our technology to better serve communities</p>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h4>Compassion</h4>
+                            <p>Putting people first in everything we do</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-stats-container">
+                    <div class="stats-header">
+                        <h3>Our Impact</h3>
+                        <a href="about.html" class="learn-more-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-user-shield"></i>
+                            </div>
+                            <span class="stat-number">10,000+</span>
+                            <span class="stat-label">Lives Saved</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-satellite"></i>
+                            </div>
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Disasters Predicted</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span class="stat-number">100,000+</span>
+                            <span class="stat-label">Active Users</span>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Support</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="live-updates">
+            <h2>Live Updates</h2>
+            <div class="live-updates-header">
+                <div class="update-filters">
+                    <select id="updateFilter" class="update-filter-select">
+                        <option value="all">All Updates</option>
+                        <option value="alert">Alerts</option>
+                        <option value="info">Information</option>
+                        <option value="warning">Warnings</option>
+                    </select>
+                    <div class="search-container">
+                        <input type="text" id="updateSearch" placeholder="Search updates...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <button id="refreshUpdates" class="refresh-btn">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            <div class="updates-container" id="updatesContainer">
+                <!-- Sample Updates -->
+                <div class="update-item alert">
+                    <div class="update-time">
+                        <span class="time">10:45 AM</span>
+                        <span class="date">Today</span>
+                    </div>
+                    <div class="update-content">
+                        <div class="update-header">
+                            <span class="update-type">ALERT</span>
+                            <h3>Flash Flood Warning</h3>
+                        </div>
+                        <p>Flash flood warning issued for Delhi NCR region due to heavy rainfall. Avoid low-lying areas and stay indoors.</p>
+                        <div class="update-footer">
+                            <span class="location"><i class="fas fa-map-marker-alt"></i> Delhi NCR</span>
+                            <a href="#" class="more-info">More info <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="update-item info">
+                    <div class="update-time">
+                        <span class="time">09:30 AM</span>
+                        <span class="date">Today</span>
+                    </div>
+                    <div class="update-content">
+                        <div class="update-header">
+                            <span class="update-type">INFO</span>
+                            <h3>Relief Centers Opened</h3>
+                        </div>
+                        <p>Three relief centers have been opened in South Mumbai area to provide shelter to affected residents.</p>
+                        <div class="update-footer">
+                            <span class="location"><i class="fas fa-map-marker-alt"></i> Mumbai</span>
+                            <a href="#" class="more-info">More info <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="update-item warning">
+                    <div class="update-time">
+                        <span class="time">08:15 AM</span>
+                        <span class="date">Today</span>
+                    </div>
+                    <div class="update-content">
+                        <div class="update-header">
+                            <span class="update-type">WARNING</span>
+                            <h3>Cyclone Approaching</h3>
+                        </div>
+                        <p>Cyclone Vardah is expected to make landfall in the next 48 hours. Coastal areas should prepare for evacuation.</p>
+                        <div class="update-footer">
+                            <span class="location"><i class="fas fa-map-marker-alt"></i> Tamil Nadu Coast</span>
+                            <a href="#" class="more-info">More info <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="update-item info">
+                    <div class="update-time">
+                        <span class="time">5:45 PM</span>
+                        <span class="date">Yesterday</span>
+                    </div>
+                    <div class="update-content">
+                        <div class="update-header">
+                            <span class="update-type">INFO</span>
+                            <h3>Road Closure Update</h3>
+                        </div>
+                        <p>NH-48 has been temporarily closed due to landslide. Alternative routes have been established.</p>
+                        <div class="update-footer">
+                            <span class="location"><i class="fas fa-map-marker-alt"></i> Himachal Pradesh</span>
+                            <a href="#" class="more-info">More info <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="view-all-updates">
+                <a href="real-time-alerts.html" class="view-all-btn">View All Updates <i class="fas fa-long-arrow-alt-right"></i></a>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact-section">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p><i class="fas fa-phone-alt"></i> Emergency: 1800-XXX-XXXX</p>
+                <p><i class="fas fa-envelope"></i> Email: support@surakshaalert.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Address: Bennett University, Plot No 8-11, TechZone II, Greater Noida, Uttar Pradesh 201310</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-of-service.html">Terms of Service</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="#contact-section">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#" class="facebook-link" aria-label="Facebook"><i class="fab fa-facebook" style="color: #ffffff !important;"></i><span class="social-label">Facebook</span></a>
+                    <a href="#" class="twitter-link" aria-label="Twitter/X"><i class="fab fa-twitter" style="color: #ffffff !important;"></i><span class="social-label">Twitter</span></a>
+                    <a href="#" class="instagram-link" aria-label="Instagram"><i class="fab fa-instagram" style="color: #ffffff !important;"></i><span class="social-label">Instagram</span></a>
+                    <a href="#" class="linkedin-link" aria-label="LinkedIn"><i class="fab fa-linkedin" style="color: #ffffff !important;"></i><span class="social-label">LinkedIn</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Suraksha Alert. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="map.js"></script>
+    <script src="fix-social-icons.js"></script>
+    
+    <!-- Custom Cursor Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create cursor trail elements
+            function createCursorTrail() {
+                const trailContainer = document.createElement('div');
+                trailContainer.className = 'cursor-trail-container';
+                document.body.appendChild(trailContainer);
+                
+                // Create trail particles
+                for(let i = 0; i < 10; i++) {
+                    const trail = document.createElement('div');
+                    trail.className = 'cursor-trail';
+                    trail.style.width = (8 - i * 0.5) + 'px';
+                    trail.style.height = (8 - i * 0.5) + 'px';
+                    trail.style.opacity = (10 - i) / 10;
+                    trailContainer.appendChild(trail);
+                }
+                
+                // Get all trail elements
+                return document.querySelectorAll('.cursor-trail');
+            }
+            
+            const trails = createCursorTrail();
+            const trailPositions = Array.from(trails).map(() => ({ x: 0, y: 0 }));
+            
+            // Update trail positions with delay
+            function updateTrailPositions(x, y) {
+                trailPositions.unshift({ x, y });
+                trailPositions.pop();
+                
+                trails.forEach((trail, index) => {
+                    const position = trailPositions[index];
+                    trail.style.transform = `translate(${position.x}px, ${position.y}px)`;
+                    
+                    // Change color based on page section
+                    if (document.querySelector('.alert-card:hover')) {
+                        trail.style.backgroundColor = 'rgba(211, 47, 47, ' + (1 - index/10) + ')';
+                    } else if (document.querySelector('.emergency-panel:hover')) {
+                        trail.style.backgroundColor = 'rgba(211, 47, 47, ' + (1 - index/10) + ')';
+                    } else {
+                        trail.style.backgroundColor = 'rgba(25, 118, 210, ' + (1 - index/10) + ')';
+                    }
+                });
+            }
+            
+            // Track mouse movement
+            document.addEventListener('mousemove', function(e) {
+                updateTrailPositions(e.clientX, e.clientY);
+                
+                // Add pulse effect on critical alert hover
+                if (document.querySelector('.critical:hover')) {
+                    const pulse = document.createElement('div');
+                    pulse.className = 'cursor-pulse';
+                    pulse.style.left = e.clientX + 'px';
+                    pulse.style.top = e.clientY + 'px';
+                    document.body.appendChild(pulse);
+                    
+                    setTimeout(() => {
+                        pulse.remove();
+                    }, 1000);
+                }
+            });
+        });
+    </script>
+    
+    <!-- Chat Widget JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatButton = document.getElementById('chatButton');
+            const chatContainer = document.getElementById('chatContainer');
+            const minimizeChat = document.getElementById('minimizeChat');
+            const closeChat = document.getElementById('closeChat');
+            const messageInput = document.getElementById('messageInput');
+            const sendMessage = document.getElementById('sendMessage');
+            const chatMessages = document.getElementById('chatMessages');
+            const uploadDocument = document.getElementById('uploadDocument');
+            const documentInput = document.getElementById('documentInput');
+            let currentDocument = null;
+            
+            // Toggle chat window
+            chatButton.addEventListener('click', function() {
+                chatContainer.classList.toggle('active');
+            });
+            
+            // Minimize chat
+            minimizeChat.addEventListener('click', function() {
+                chatContainer.classList.remove('active');
+            });
+            
+            // Close chat
+            closeChat.addEventListener('click', function() {
+                chatContainer.classList.remove('active');
+            });
+            
+            // Upload document
+            uploadDocument.addEventListener('click', function() {
+                documentInput.click();
+            });
+            
+            // Handle document selection
+            documentInput.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    currentDocument = file;
+                    
+                    let icon;
+                    if (file.type.includes('image')) {
+                        icon = 'fa-image';
+                    } else if (file.type.includes('pdf')) {
+                        icon = 'fa-file-pdf';
+                    } else if (file.type.includes('word') || file.type.includes('doc')) {
+                        icon = 'fa-file-word';
+                    } else {
+                        icon = 'fa-file';
+                    }
+                    
+                    // Show document preview before sending
+                    const previewMessage = `
+                        <div class="document-preview">
+                            <i class="fas ${icon}"></i>
+                            <span class="document-name">${file.name}</span>
+                            <button class="remove-document">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Add document preview to chat
+                    const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = 'message user';
+                    
+                    messageDiv.innerHTML = `
+                        <div class="message-content">
+                            <p>I'm sending a document: ${file.name}</p>
+                            ${previewMessage}
+                            <span class="message-time">${time}</span>
+                        </div>
+                    `;
+                    
+                    chatMessages.appendChild(messageDiv);
+                    
+                    // Scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                    
+                    // Auto reply to document upload
+                    setTimeout(() => {
+                        const documentResponses = [
+                            "Thanks for sharing this document. I'll review it right away.",
+                            "I've received your document. Let me check the information provided.",
+                            "Document received. I'm analyzing the contents to provide better assistance.",
+                            "Got your document. Is there anything specific you'd like me to focus on?",
+                            "Thank you for uploading this document. How would you like me to help with it?"
+                        ];
+                        const randomResponse = documentResponses[Math.floor(Math.random() * documentResponses.length)];
+                        addMessage(randomResponse, 'system');
+                    }, 1000);
+                    
+                    // Reset file input
+                    e.target.value = '';
+                }
+            });
+            
+            // Send message
+            function sendUserMessage() {
+                const message = messageInput.value.trim();
+                if (message !== '') {
+                    // Add user message
+                    addMessage(message, 'user');
+                    
+                    // Clear input
+                    messageInput.value = '';
+                    
+                    // Provide the emergency response for all queries
+                    setTimeout(() => {
+                        const emergencyResponse = `🆘 What You Should Do Right Now:
+1. Stay Calm & Assess Your Surroundings
+Check if you're injured.
+
+Look around for any unstable ground, falling debris, or cracks in the soil.
+
+2. Move to a Safe Zone (If Possible)
+Try to get to higher ground away from the slide.
+
+Avoid rivers, slopes, or areas where more debris might flow.
+
+3. Don't Re-Enter Buildings
+Structures near landslide zones could collapse without warning.
+
+4. Send Your Location
+Use your phone to share your live location with emergency contacts or your AI chatbot (if integrated with location services).
+
+5. Ask for Alternate Routes
+Request the AI for real-time alternate paths to exit safely.
+
+Do not take shortcuts unless verified safe.
+
+6. Stay Visible
+If you're stuck, wave a bright cloth, use a flashlight, or make noise to signal rescuers.
+
+7. Preserve Phone Battery
+Use low-power mode and turn off non-essential apps.`;
+                        addMessage(emergencyResponse, 'system');
+                    }, 1000);
+                }
+            }
+            
+            // Add message to chat
+            function addMessage(text, type) {
+                const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${type}`;
+                
+                messageDiv.innerHTML = `
+                    <div class="message-content">
+                        <p>${text}</p>
+                        <span class="message-time">${time}</span>
+                    </div>
+                `;
+                
+                chatMessages.appendChild(messageDiv);
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Send message on button click
+            sendMessage.addEventListener('click', sendUserMessage);
+            
+            // Send message on Enter key (but allow Shift+Enter for new line)
+            messageInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendUserMessage();
+                }
+            });
+            
+            // Auto-resize textarea
+            messageInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight < 100) ? this.scrollHeight + 'px' : '100px';
+            });
+        });
+    </script>
+    <script>
+        // Initialize map when the page loads
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const progressBar = document.querySelector('.loading-progress-bar');
+            const loadingTips = document.getElementById('loadingTips');
+            
+            // Safety tips to display during loading
+            const safetyTips = [
+                "Stay informed during emergencies - Keep your device charged",
+                "Create a family emergency plan and practice it regularly",
+                "Keep emergency supplies in your home, workplace and vehicle",
+                "Know evacuation routes from your home and workplace",
+                "Store important documents in waterproof containers",
+                "Learn basic first aid skills - they could save lives"
+            ];
+            
+            // Rotate through safety tips
+            let tipIndex = 0;
+            const tipInterval = setInterval(() => {
+                tipIndex = (tipIndex + 1) % safetyTips.length;
+                loadingTips.style.opacity = "0";
+                
+                setTimeout(() => {
+                    loadingTips.textContent = safetyTips[tipIndex];
+                    loadingTips.style.opacity = "1";
+                }, 500);
+            }, 3000);
+            
+            // Simulate loading progress
+            let progress = 0;
+            const interval = setInterval(function() {
+                progress += 2;
+                progressBar.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    clearInterval(tipInterval);
+                    loadingScreen.classList.add('loading-complete');
+                    setTimeout(function() {
+                        loadingScreen.classList.add('hidden');
+                    }, 1000);
+                }
+            }, 60);
+
+            // Initialize map if Google Maps API is loaded
+            if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
+                initMap();
+            }
+        });
+    </script>
+    
+    <!-- Weather Widget JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const locationSelect = document.getElementById('locationSelect');
+            const refreshWeatherBtn = document.getElementById('refreshWeather');
+            const weatherAlertsBtn = document.getElementById('weatherAlerts');
+            
+            // Weather data for different locations (simulated)
+            const weatherData = {
+                current: {
+                    current: { temp: 32, description: 'Clear Sky', humidity: 45, wind: 12, icon: 'fa-sun' },
+                    forecast: [
+                        { day: 'Mon', temp: 29, icon: 'fa-cloud-sun' },
+                        { day: 'Tue', temp: 27, icon: 'fa-cloud-rain' },
+                        { day: 'Wed', temp: 25, icon: 'fa-cloud-showers-heavy' },
+                        { day: 'Thu', temp: 26, icon: 'fa-bolt' },
+                        { day: 'Fri', temp: 30, icon: 'fa-sun' }
+                    ],
+                    hazard: {
+                        title: 'Severe Thunderstorm Warning',
+                        description: 'Heavy rainfall expected on Wednesday with risk of flash flooding in low-lying areas. Stay prepared.'
+                    }
+                },
+                delhi: {
+                    current: { temp: 35, description: 'Hazy Sunshine', humidity: 30, wind: 8, icon: 'fa-sun' },
+                    forecast: [
+                        { day: 'Mon', temp: 36, icon: 'fa-sun' },
+                        { day: 'Tue', temp: 38, icon: 'fa-sun' },
+                        { day: 'Wed', temp: 35, icon: 'fa-cloud' },
+                        { day: 'Thu', temp: 33, icon: 'fa-cloud-sun' },
+                        { day: 'Fri', temp: 34, icon: 'fa-sun' }
+                    ],
+                    hazard: {
+                        title: 'Heat Wave Alert',
+                        description: 'Extreme temperatures expected to continue. Stay hydrated and avoid outdoor activities during peak hours.'
+                    }
+                },
+                mumbai: {
+                    current: { temp: 29, description: 'Heavy Rain', humidity: 85, wind: 18, icon: 'fa-cloud-showers-heavy' },
+                    forecast: [
+                        { day: 'Mon', temp: 28, icon: 'fa-cloud-rain' },
+                        { day: 'Tue', temp: 29, icon: 'fa-cloud-showers-heavy' },
+                        { day: 'Wed', temp: 28, icon: 'fa-cloud-rain' },
+                        { day: 'Thu', temp: 30, icon: 'fa-cloud' },
+                        { day: 'Fri', temp: 31, icon: 'fa-cloud-sun' }
+                    ],
+                    hazard: {
+                        title: 'Flooding Risk Alert',
+                        description: 'Continuous heavy rainfall may cause flooding in low-lying areas. Avoid unnecessary travel and stay updated with local authorities.'
+                    }
+                },
+                kolkata: {
+                    current: { temp: 31, description: 'Partly Cloudy', humidity: 65, wind: 10, icon: 'fa-cloud-sun' },
+                    forecast: [
+                        { day: 'Mon', temp: 32, icon: 'fa-cloud-sun' },
+                        { day: 'Tue', temp: 33, icon: 'fa-cloud' },
+                        { day: 'Wed', temp: 30, icon: 'fa-cloud-rain' },
+                        { day: 'Thu', temp: 29, icon: 'fa-cloud-showers-heavy' },
+                        { day: 'Fri', temp: 31, icon: 'fa-cloud-sun' }
+                    ],
+                    hazard: {
+                        title: 'Heavy Rain Warning',
+                        description: 'Heavy rain expected mid-week with possible thunderstorms. Keep emergency supplies ready.'
+                    }
+                },
+                chennai: {
+                    current: { temp: 33, description: 'Hot and Humid', humidity: 70, wind: 12, icon: 'fa-sun' },
+                    forecast: [
+                        { day: 'Mon', temp: 34, icon: 'fa-sun' },
+                        { day: 'Tue', temp: 33, icon: 'fa-cloud-sun' },
+                        { day: 'Wed', temp: 32, icon: 'fa-cloud' },
+                        { day: 'Thu', temp: 33, icon: 'fa-cloud-sun' },
+                        { day: 'Fri', temp: 34, icon: 'fa-sun' }
+                    ],
+                    hazard: {
+                        title: 'High Humidity Alert',
+                        description: 'Extremely high humidity levels may cause heat-related illnesses. Stay in air-conditioned environments when possible.'
+                    }
+                }
+            };
+            
+            // Update weather display based on location
+            function updateWeatherDisplay(location) {
+                const data = weatherData[location];
+                
+                // Update current weather
+                document.querySelector('.weather-icon i').className = `fas ${data.current.icon}`;
+                document.querySelector('.temperature').textContent = `${data.current.temp}°C`;
+                document.querySelector('.weather-description').textContent = data.current.description;
+                document.querySelector('.other-details span:first-child').innerHTML = `<i class="fas fa-tint"></i> ${data.current.humidity}%`;
+                document.querySelector('.other-details span:last-child').innerHTML = `<i class="fas fa-wind"></i> ${data.current.wind} km/h`;
+                
+                // Update forecast
+                const forecastItems = document.querySelectorAll('.forecast-item');
+                data.forecast.forEach((forecast, index) => {
+                    if (forecastItems[index]) {
+                        forecastItems[index].querySelector('.day').textContent = forecast.day;
+                        forecastItems[index].querySelector('i').className = `fas ${forecast.icon}`;
+                        forecastItems[index].querySelector('.temp').textContent = `${forecast.temp}°C`;
+                    }
+                });
+                
+                // Update hazard alert
+                document.querySelector('.hazard-details h4').textContent = data.hazard.title;
+                document.querySelector('.hazard-details p').textContent = data.hazard.description;
+                
+                // Visual feedback for refresh
+                document.querySelector('.weather-card').classList.add('refreshing');
+                setTimeout(() => {
+                    document.querySelector('.weather-card').classList.remove('refreshing');
+                }, 500);
+            }
+            
+            // Event listeners
+            locationSelect.addEventListener('change', function() {
+                updateWeatherDisplay(this.value);
+            });
+            
+            refreshWeatherBtn.addEventListener('click', function() {
+                updateWeatherDisplay(locationSelect.value);
+            });
+            
+            weatherAlertsBtn.addEventListener('click', function() {
+                if (Notification.permission === 'granted') {
+                    setupWeatherAlerts();
+                } else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === 'granted') {
+                            setupWeatherAlerts();
+                        }
+                    });
+                } else {
+                    alert('Please enable notifications to receive weather alerts');
+                }
+            });
+            
+            // Set up weather alerts
+            function setupWeatherAlerts() {
+                const location = locationSelect.value;
+                const data = weatherData[location];
+                
+                alert(`Weather alerts set up for ${locationSelect.options[locationSelect.selectedIndex].text}. You will be notified about: ${data.hazard.title}`);
+                
+                // Simulate alert after 5 seconds
+                setTimeout(() => {
+                    if (Notification.permission === 'granted') {
+                        const notification = new Notification('Suraksha Alert - Weather Warning', {
+                            body: data.hazard.description,
+                            icon: 'assets/logo.png'
+                        });
+                        
+                        notification.onclick = function() {
+                            window.focus();
+                            notification.close();
+                        };
+                    }
+                }, 5000);
+            }
+            
+            // Initialize with default location
+            updateWeatherDisplay('current');
+            
+            // Navbar scroll effect
+            const navbar = document.querySelector('.navbar');
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                lastScrollY = window.scrollY;
+            });
+        });
+    </script>
+    
+    <!-- Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add reveal class to elements that should animate on scroll
+            document.querySelectorAll('.service-card, .feature-card, .about-content, .about-stats, .about-details, .weather-card, .section-header').forEach(element => {
+                element.classList.add('reveal');
+            });
+            
+            // Scroll reveal animation
+            function revealElements() {
+                const reveals = document.querySelectorAll('.reveal');
+                const windowHeight = window.innerHeight;
+                
+                reveals.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150; // Adjust this value to change when the element becomes visible
+                    
+                    if (elementTop < windowHeight - elementVisible) {
+                        element.classList.add('active');
+                    }
+                });
+            }
+            
+            // Call on page load and scroll
+            revealElements();
+            window.addEventListener('scroll', revealElements);
+            
+            // Parallax effect for hero section
+            const hero = document.querySelector('.hero');
+            const heroContent = document.querySelector('.hero-content');
+            
+            hero.addEventListener('mousemove', function(e) {
+                const xPos = (e.clientX / window.innerWidth - 0.5) * 10;
+                const yPos = (e.clientY / window.innerHeight - 0.5) * 10;
+                
+                heroContent.style.transform = `translateZ(10px) rotateX(${-yPos}deg) rotateY(${xPos}deg)`;
+            });
+            
+            hero.addEventListener('mouseleave', function() {
+                heroContent.style.transform = 'translateZ(0px) rotateX(0deg) rotateY(0deg)';
+            });
+        });
+    </script>
+    
+    <!-- Verify Now JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const documentFile = document.getElementById('document-file');
+            const uploadBox = document.querySelector('.upload-box');
+            const verifyBtn = document.getElementById('verifySubmit');
+            
+            // Change upload box appearance when file is selected
+            documentFile.addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    const file = e.target.files[0];
+                    uploadBox.innerHTML = `
+                        <i class="fas fa-file-check" style="color: #4CAF50;"></i>
+                        <span style="color: #4CAF50; font-weight: 600;">${file.name}</span>
+                        <span style="font-size: 0.8rem; color: #777;">${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                        <button type="button" id="removeFile" style="margin-top: 10px; background: #f44336; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+                            <i class="fas fa-times"></i> Remove
+                        </button>
+                        <input type="file" id="document-file" accept=".jpg,.jpeg,.png,.pdf" style="display: none;">
+                    `;
+                    
+                    // Add event listener to remove button
+                    document.getElementById('removeFile').addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        resetUploadBox();
+                    });
+                }
+            });
+            
+            // Reset upload box to initial state
+            function resetUploadBox() {
+                uploadBox.innerHTML = `
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <span>Drag and drop your document or click to browse</span>
+                    <input type="file" id="document-file" accept=".jpg,.jpeg,.png,.pdf">
+                `;
+                documentFile = document.getElementById('document-file');
+                addFileChangeListener();
+            }
+            
+            // Add change event listener to file input
+            function addFileChangeListener() {
+                documentFile.addEventListener('change', function(e) {
+                    if (e.target.files.length > 0) {
+                        const file = e.target.files[0];
+                        updateUploadBox(file);
+                    }
+                });
+            }
+            
+            // Allow drag and drop functionality
+            uploadBox.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadBox.style.borderColor = '#1976d2';
+                uploadBox.style.backgroundColor = 'rgba(25, 118, 210, 0.03)';
+            });
+            
+            uploadBox.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                uploadBox.style.borderColor = '#ccc';
+                uploadBox.style.backgroundColor = 'transparent';
+            });
+            
+            uploadBox.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadBox.style.borderColor = '#ccc';
+                uploadBox.style.backgroundColor = 'transparent';
+                
+                if (e.dataTransfer.files.length > 0) {
+                    const file = e.dataTransfer.files[0];
+                    const allowedTypes = ['.jpg', '.jpeg', '.png', '.pdf'];
+                    const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+                    
+                    if (allowedTypes.includes(fileExtension)) {
+                        documentFile.files = e.dataTransfer.files;
+                        updateUploadBox(file);
+                    } else {
+                        alert('Please upload a valid document file (JPG, PNG, or PDF)');
+                    }
+                }
+            });
+            
+            // Update upload box with file info
+            function updateUploadBox(file) {
+                uploadBox.innerHTML = `
+                    <i class="fas fa-file-check" style="color: #4CAF50;"></i>
+                    <span style="color: #4CAF50; font-weight: 600;">${file.name}</span>
+                    <span style="font-size: 0.8rem; color: #777;">${(file.size / 1024 / 1024).toFixed(2)} MB</span>
+                    <button type="button" id="removeFile" style="margin-top: 10px; background: #f44336; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+                        <i class="fas fa-times"></i> Remove
+                    </button>
+                    <input type="file" id="document-file" accept=".jpg,.jpeg,.png,.pdf" style="display: none;">
+                `;
+                
+                // Add event listener to remove button
+                document.getElementById('removeFile').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    resetUploadBox();
+                });
+            }
+            
+            // Handle verify button click
+            verifyBtn.addEventListener('click', function() {
+                const selectedDocument = document.querySelector('input[name="document-type"]:checked').value;
+                if (documentFile.files.length === 0) {
+                    alert('Please upload your ' + selectedDocument + ' to continue verification');
+                    return;
+                }
+                
+                // Show loading state
+                verifyBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+                verifyBtn.disabled = true;
+                
+                // Simulate verification process (would be replaced with actual API call)
+                setTimeout(function() {
+                    verifyBtn.innerHTML = '<i class="fas fa-check-circle"></i> Verified Successfully';
+                    verifyBtn.style.backgroundColor = '#4CAF50';
+                    
+                    // Show success message
+                    const verifyActions = document.querySelector('.verify-actions');
+                    const successMsg = document.createElement('div');
+                    successMsg.className = 'verify-success';
+                    successMsg.innerHTML = `
+                        <div style="background: #e8f5e9; padding: 15px; border-radius: 10px; margin-top: 20px; text-align: left;">
+                            <h4 style="color: #2e7d32; margin-bottom: 10px;">Verification Successful!</h4>
+                            <p style="color: #555; margin-bottom: 5px;">Your profile is now verified. You have access to all emergency services and priority assistance.</p>
+                            <a href="#" style="color: #1976d2; text-decoration: none; display: inline-block; margin-top: 10px;">Go to your profile <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    `;
+                    verifyActions.appendChild(successMsg);
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
